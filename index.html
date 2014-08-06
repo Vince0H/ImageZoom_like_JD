@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>仿京东商城商品放大镜</title>
+<script src="CJL.0.1.min.js"></script>
+<script src="ImageZoom.js"></script>
+</head>
+<body>
+仿京东商城商品放大镜
+<style>
+.list img{ border:1px solid #d5d5d5; margin-right:5px;}
+.list img.on{border:1px solid #ff6600;}
+
+.izImage2{border:0;width:350px; height:350px; }
+.izViewer2{width:400px;height:400px;position:absolute;left:420px;top:20px;display:none; border:1px solid #e4e4e4;}
+
+.handle2{display:none;opacity:0.7;filter:alpha(opacity=70);background:#8b7b33; cursor:crosshair; border:1px solid #d5d5d5; position:absolute;}
+
+</style>
+<div class="container"> <img id="idImage2" class="izImage2" />
+	<div id="idViewer2" class="izViewer2"></div>
+</div>
+<div id="idList" class="list"> </div>
+<div id="idHandle3" class="handle2"></div>
+<script>
+
+(function(){
+
+var iz = new ImageZoom( "idImage2", "idViewer2", {
+	mode: "handle", handle: "idHandle3"
+});
+
+var arrPic = [], list = $$("idList"), image = $$("idImage2");
+
+arrPic.push({ smallPic: "1.jpg", originPic: "1m.jpg", zoomPic: "1b.jpg" });
+arrPic.push({ smallPic: "2.jpg", originPic: "2m.jpg", zoomPic: "2b.jpg" });
+arrPic.push({ smallPic: "3.jpg", originPic: "3m.jpg", zoomPic: "3b.jpg" });
+
+$$A.forEach(arrPic, function(o, i){
+	var img = list.appendChild(document.createElement("img"));
+	img.src = o.smallPic;
+	img.onmouseover = function(){
+		iz.reset({ originPic: o.originPic, zoomPic: o.zoomPic });
+		$$A.forEach(list.getElementsByTagName("img"), function(img){ img.className = ""; });
+		this.className = "on";
+	}
+	if(!i){ img.onmouseover(); }
+})
+
+
+})()
+
+</script>
+<br>
+<br>
+作者：<a href="vince.cf">Vince</a>, <a href="http://www.cnblogs.com/cloudgamer/archive/2010/04/14/ImageZoom_ext.html">程序说明</a>
+</body>
+</html>
